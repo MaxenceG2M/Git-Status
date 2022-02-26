@@ -7,6 +7,7 @@
 # @since    18/05/2010
 
 # Grab some libraries
+import re
 import sys
 import os
 import glob
@@ -146,10 +147,23 @@ if __name__ == "__main__":
                         result = result + " (Pushed) \n" + push
 
                 else:
-                    result = bcolors.FAIL + "Changes" + bcolors.ENDC
+                    result = bcolors.FAIL + "Changes   " + bcolors.ENDC
+
+                # TODO Use a function
+                # Get origin remote
+                out = subprocess.getoutput('cd ' + infile + '; git remote -v')
+                j = out.find('origin')
+                k = out.find('(fetch)')
+                remote_url = out[j+7:k-1]
+
+                m = re.search('^(?:(?:ssh|https?|git)?:\/\/|ssh)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)', remote_url)
+                if m:
+                    domain = m.group(1)
+                else:
+                    domain = ''
 
                 # Write to screen
-                sys.stdout.write("-- " + bcolors.OKBLUE + infile.ljust(55) + bcolors.ENDC + branch + " : " + result +"\n")
+                sys.stdout.write("-- " + bcolors.OKBLUE + infile.ljust(55) + bcolors.ENDC + branch + " : " + result + "\t - " + domain +"\n")
 
             else:
                 #Print some repo details
