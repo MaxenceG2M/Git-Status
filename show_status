@@ -163,7 +163,8 @@ if __name__ == "__main__":
                     domain = ''
 
                 # Write to screen
-                sys.stdout.write("-- " + bcolors.OKBLUE + infile.ljust(55) + bcolors.ENDC + branch + " : " + result + "\t - " + domain +"\n")
+                repo_name = infile.replace(options.dirname, '')
+                sys.stdout.write("-- " + bcolors.OKBLUE + repo_name.ljust(55) + bcolors.ENDC + branch_name + " : " + result + "\t - " + domain +"\n")
 
             else:
                 #Print some repo details
