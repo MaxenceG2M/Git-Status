@@ -117,13 +117,13 @@ if __name__ == "__main__":
 
                 j = out.find('On branch')
                 k = out.find('\n', j)
-                branch = out[j+10:k]
+                branch_name = out[j+10:k]
                 branchColor = bcolors.WARNING
 
-                if branch == 'master':
+                if branch_name == 'master':
                     branchColor = bcolors.OKGREEN
 
-                branch = "[ " + branchColor + branch.ljust(15) + bcolors.ENDC + " ]"
+                branch_name = "[ " + branchColor + branch_name.ljust(15) + bcolors.ENDC + " ]"
 
                 if -1 != out.find('nothing'):
                     result = bcolors.OKGREEN + "No Changes" + bcolors.ENDC
